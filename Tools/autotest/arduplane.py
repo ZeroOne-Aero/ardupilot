@@ -7590,6 +7590,8 @@ class AutoTestPlane(vehicle_test_suite.TestSuite):
             "MAV_GCS_SYSID": self.mav.source_system,
             "AFS_TERM_ACTION": 42,
         })
+        # AFS_TERMINATE magically set-and-saved by code:
+        self.context_preserve_parameters(["AFS_TERMINATE"])
         self.wait_ready_to_arm()
         self.arm_vehicle()
         self.context_collect('STATUSTEXT')
@@ -7610,6 +7612,8 @@ class AutoTestPlane(vehicle_test_suite.TestSuite):
             "MAV_GCS_SYSID": self.mav.source_system,
             "AFS_TERM_ACTION": 42,
         })
+        # AFS_TERMINATE magically set-and-saved by code:
+        self.context_preserve_parameters(["AFS_TERMINATE"])
         self.takeoff(50, mode='TAKEOFF', timeout=200)
 
         # lock home to avoid alt messups
