@@ -422,8 +422,10 @@ AP_HW_MATEKH743SE                    5501
 
 #IDs 5600-5699 reserved for ZeroOne
 AP_HW_ZeroOne_X6                     5600
-AP_HW_ZeroOne_PMU                    5601
-AP_HW_ZeroOne_GNSS                   5602
+AP_HW_ZeroOne_X9                     5601
+AP_HW_ZeroOne_M9                     5610
+AP_HW_ZeroOne_A3                     5620
+AP_HW_ZeroOne_A6i                    5621
 
 #IDs 5700-5710 reserved for DroneBuild  
 AP_HW_DroneBuild_G1                  5700
@@ -465,6 +467,11 @@ AP_HW_CubeOrange_ODID               10140
 AP_HW_Pixhawk6_ODID                 10053
 AP_HW_CUAV_NORA_ODID                11009
 AP_HW_CUAV_X7_PRO_ODID              11010
+AP_HW_ZeroOne_X6_ODID               15600
+AP_HW_ZeroOne_X9_ODID               15601
+AP_HW_ZeroOne_M9_ODID               15610
+AP_HW_ZeroOne_A3_ODID               15620
+AP_HW_ZeroOne_A6i_ODID              15621
 AP_HW_CUAV-7-NANO_ODID              17000
 AP_HW_CUAV-X25-EVO_ODID             17002
 
