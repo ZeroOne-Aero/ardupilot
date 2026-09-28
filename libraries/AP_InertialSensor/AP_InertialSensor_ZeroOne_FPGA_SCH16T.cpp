@@ -238,7 +238,7 @@ void AP_InertialSensor_ZeroOne_FPGA_SCH16T::sensor_ctrl(uint8_t fifo_rst)
     sensor_ctl.reg.reg_data[2] = (reg >> 16) & 0xff;
     sensor_ctl.reg.reg_data[3] = (reg >> 24) & 0xff;
 
-    dev->transfer_fullduplex(sensor_ctl.raw, 7);
+    dev->transfer(sensor_ctl.raw, 7, sensor_ctl.raw, 7);
 }
 
 bool AP_InertialSensor_ZeroOne_FPGA_SCH16T::init()
@@ -675,7 +675,7 @@ void AP_InertialSensor_ZeroOne_FPGA_SCH16T::fpga_read_fifo8(uint16_t reg, uint8_
     frame.fifo.data[0] = SEPARATOR_BYTE;//separator byte
     memset(value,DUMMY_BYTE, size);
     memcpy(frame.fifo.data+1, value, size);
-    dev->transfer_fullduplex(frame.raw,size+5);
+    dev->transfer(frame.raw, size+5, frame.raw, size+5);
     memcpy(value, frame.fifo.data+1, size);
 }
 
@@ -685,7 +685,7 @@ void AP_InertialSensor_ZeroOne_FPGA_SCH16T::fpga_write_reg8(uint16_t reg, uint8_
 
     fill_fpga_frame(frame, FuncBit_Write | FuncBit_Reg | FuncBit_Bit8, reg, 0);
     frame.reg.data[0] = value;
-    dev->transfer_fullduplex(frame.raw,4);
+    dev->transfer(frame.raw, 4, frame.raw, 4);
 }
 uint8_t AP_InertialSensor_ZeroOne_FPGA_SCH16T::fpga_read_reg8(uint16_t reg)
 {
@@ -694,7 +694,7 @@ uint8_t AP_InertialSensor_ZeroOne_FPGA_SCH16T::fpga_read_reg8(uint16_t reg)
     fill_fpga_frame(frame, FuncBit_Read | FuncBit_Reg | FuncBit_Bit8, reg, 0);
     frame.reg.data[0] = SEPARATOR_BYTE;
     frame.reg.data[1] = DUMMY_BYTE;
-    dev->transfer_fullduplex(frame.raw,5);
+    dev->transfer(frame.raw, 5, frame.raw, 5);
     return frame.reg.data[1];
 }
 
@@ -706,7 +706,7 @@ uint16_t AP_InertialSensor_ZeroOne_FPGA_SCH16T::fpga_read_reg16(uint16_t reg)
     frame.reg.data[0] = SEPARATOR_BYTE;
     frame.reg.data[1] = DUMMY_BYTE;
     frame.reg.data[2] = DUMMY_BYTE;
-    dev->transfer_fullduplex(frame.raw,6);
+    dev->transfer(frame.raw, 6, frame.raw, 6);
     return frame.reg.data[1] | (frame.reg.data[2] << 8);
 }
 
@@ -717,7 +717,7 @@ void AP_InertialSensor_ZeroOne_FPGA_SCH16T::fpga_write_reg16(uint16_t reg, uint1
     fill_fpga_frame(frame, FuncBit_Write | FuncBit_Reg | FuncBit_Bit16, reg, 0);
     frame.reg.data[0] = value & 0xff;
     frame.reg.data[1] = (value >> 8) & 0xff;
-    dev->transfer_fullduplex(frame.raw,5);
+    dev->transfer(frame.raw, 5, frame.raw, 5);
 }
 
 void AP_InertialSensor_ZeroOne_FPGA_SCH16T::fpga_write_ram8(uint16_t reg, uint16_t ram_addr, uint8_t* value, uint16_t size)
@@ -731,7 +731,7 @@ void AP_InertialSensor_ZeroOne_FPGA_SCH16T::fpga_write_ram8(uint16_t reg, uint16
     }
     fill_fpga_frame(frame, FuncBit_Write | FuncBit_Ram | FuncBit_Bit8, reg, ram_addr);
     memcpy(frame.ram.data, value, size);
-    dev->transfer_fullduplex(frame.raw,size+5);
+    dev->transfer(frame.raw, size+5, frame.raw, size+5);
 }
 
 void AP_InertialSensor_ZeroOne_FPGA_SCH16T::fpga_read_ram8(uint16_t reg, uint16_t ram_addr, uint8_t* value, uint16_t size)
@@ -749,7 +749,7 @@ void AP_InertialSensor_ZeroOne_FPGA_SCH16T::fpga_read_ram8(uint16_t reg, uint16_
     frame.ram.data[0] = SEPARATOR_BYTE;//separator byte
     memset(value,DUMMY_BYTE, size);
     memcpy(frame.ram.data+1, value, size);
-    dev->transfer_fullduplex(frame.raw,size+6);
+    dev->transfer(frame.raw, size+6, frame.raw, size+6);
     memcpy(value, frame.ram.data+1, size);
 }
 
